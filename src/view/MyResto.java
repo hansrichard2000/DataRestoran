@@ -2,9 +2,14 @@ package view;
 
 import java.util.Scanner;
 
+import util.MenuFunction;
+
 public class MyResto {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+
+        MenuFunction menuFunction = new MenuFunction();
+
         while (true) {
             System.out.println("||||||SELAMAT DATANG||||||");
             System.out.println("========:My Resto:========");
@@ -18,13 +23,13 @@ public class MyResto {
             System.out.print("->Pilihan menu : ");
             int pilih = scan.nextInt();
             if (pilih == 1) {
-                menuListView();
+                menuFunction.showMenu();
             } else if (pilih == 2) {
-                
+                menuFunction.addOrder();
             } else if (pilih == 3) {
-                
+                menuFunction.updateOrder();
             } else if (pilih == 4) {
-                
+                menuFunction.deleteOrder();
             } else if (pilih == 5) {
                 break;
             }

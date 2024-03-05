@@ -2,82 +2,74 @@ package util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 import model.Menu;
 
 public class MenuFunction {
-    Scanner scan = new Scanner(System.in);
-    
+
+    ArrayList<Menu> menuArrayList = new ArrayList<Menu>(
+        Arrays.asList(
+            new Menu("Nasi Goreng", 20000),
+            new Menu("Nasi Bakar", 15000),
+            new Menu("Es Teh Manis", 7000),
+            new Menu("Aqua Botol", 5000)
+        ));
+
+
     public void showMenu() {
-        // System.out.print("-> Masukkan nama mahasiswa: ");
-        // String nama1 = scan.next() + scan.nextLine();
-        // System.out.print("-> Masukkan nim mahasiswa: ");
-        // String nim1 = scan.next() + scan.nextLine();
-        // tambah.add(new database(nama1, nim1));
-        // System.out.println("");
+        System.out.println("");
+        System.out.println("=========================");
+        System.out.println("|||Daftar Menu MyResto|||");
+        System.out.println("=========================");
+        
+        if (menuArrayList.isEmpty()) {
+            System.out.println("Data Menu Kosong");
+        }else{
+            for(int i = 0; i < menuArrayList.size(); i++){
+                Menu menuList = menuArrayList.get(i);
+                System.out.println((i+1) + ". " + menuList.getMenuName() + " "+menuList.getMenuPrice());
+            }
+        }
+
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println("");
     }
 
     public void addOrder() {
-        // System.out.println("====================");
-        // System.out.println("|||DATA MAHASISWA|||");
-        // System.out.println("====================");
-        // if (tambah.isEmpty()) {
-        //     System.out.println("Data list kosong");
-        // } else {
-        //     for (int i = 0; i < tambah.size(); i++) {
-        //         database d = tambah.get(i);
-        //         System.out.println(i + 1 + ". " + d.getNama() + " " + d.getNim());
-        //     }
-        // }
-        // System.out.println("");
-    }
-
-    public void eraseOrder() {
-        // System.out.println("====================");
-        // System.out.println("|||LIST MAHASISWA|||");
-        // System.out.println("====================");
-        // if (tambah.isEmpty()) {
-        //     System.out.println("Data list kosong");
-        // } else {
-        //     for (int i = 0; i < tambah.size(); i++) {
-        //         database d = tambah.get(i);
-        //         System.out.println(i + 1 + ". " + d.getNama() + " " + d.getNim());
-        //     }
-        //     System.out.print("--> Hapus nomor berapa? ");
-        //     int nomor = scan.nextInt();
-        //     if (nomor - 1 > tambah.size()) {
-        //         System.out.println("(-) INPUTAN TIDAK SESUAI DENGAN DATA YANG EXIST (-)");
-        //     } else {
-        //         tambah.remove(nomor - 1);
-        //     }
-        // }
-        // System.out.println("");
+        String menuName = InputFunction.getStringInput("-> Masukkan nama menu: ");
+        int menuPrice = InputFunction.getIntegerInput("-> Masukkan harga menu: ");
+        menuArrayList.add(new Menu(menuName, menuPrice));
+        System.out.println();
     }
 
     public void updateOrder() {
-        // System.out.println("====================");
-        // System.out.println("|||LIST MAHASISWA|||");
-        // System.out.println("====================");
-        // if (tambah.isEmpty()) {
-        //     System.out.println("Data list kosong");
-        // } else {
-        //     for (int i = 0; i < tambah.size(); i++) {
-        //         database d = tambah.get(i);
-        //         System.out.println(i + 1 + ". " + d.getNama() + " " + d.getNim());
-        //     }
-        //     System.out.print("--> Update nomor berapa? ");
-        //     int nomor = scan.nextInt();
-        //     if (nomor - 1 > tambah.size()) {
-        //         System.out.println("(-) INPUTAN TIDAK SESUAI DENGAN DATA YANG EXIST (-)");
-        //     } else {
-        //         System.out.print("-> Nama mahasiswa: ");
-        //         String nama1 = scan.next() + scan.nextLine();
-        //         System.out.print("-> Nim mahasiswa: ");
-        //         String nim1 = scan.next() + scan.nextLine();
-        //         tambah.get(nomor-1).setNama(nama1);
-        //         tambah.get(nomor-1).setNim(nim1);
-        //     }
-        // }
+        showMenu();
+        if (!menuArrayList.isEmpty()) {
+            int nomor = InputFunction.getIntegerInput("--> Update nomor berapa? ");
+            if (nomor - 1 > menuArrayList.size() && nomor - 1 < 0) {
+                System.out.println("(-) INPUTAN TIDAK SESUAI DENGAN DATA YANG EXIST (-)");
+            } else {
+                String newMenuName = InputFunction.getStringInput("-> Nama Menu yang baru: ");
+                int newMenuPrice = InputFunction.getIntegerInput("Harga menu yang baru: ");
+                menuArrayList.get(nomor-1).setMenuName(newMenuName);
+                menuArrayList.get(nomor-1).setMenuPrice(newMenuPrice);
+            }
+        }
+        System.out.println();
     }
+
+    public void deleteOrder() {
+        showMenu();
+        if (!menuArrayList.isEmpty()) {
+            int nomor = InputFunction.getIntegerInput("--> Hapus nomor berapa? ");
+            if (nomor - 1 > menuArrayList.size() && nomor - 1 < 0) {
+                System.out.println("(-) INPUTAN TIDAK SESUAI DENGAN DATA YANG EXIST (-)");
+            } else {
+                menuArrayList.remove(nomor - 1);
+            }
+        }
+        System.out.println("");
+    }
+
+    
 }

@@ -29,6 +29,7 @@ public class MyResto {
                 break;
             }
         }
+        scan.close();
     }
 
     private static void menuListView() {
